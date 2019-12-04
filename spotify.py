@@ -16,8 +16,12 @@ parser.add_argument('-secret',
                     '--client_secret',
                     help='enter client secret from developer.spotify.com')
 
+parser.add_argument('-u',
+                    '--username',
+                    help='enter your spotify username')
+
 scope = 'user-library-read'
-username = 'shoumikchow'
+username = args.username
 
 args = parser.parse_args()
 
