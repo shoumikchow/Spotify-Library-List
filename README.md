@@ -7,8 +7,8 @@ Need to get Client ID and Client Secret from https://developer.spotify.com/dashb
 > pip3 install -r requirements.txt
 
 ### Usage
-> python3 spotify.py -id &lt;client-id&gt; -secret &lt;client-secret&gt;
+> python3 spotify.py -id &lt;client-id&gt; -secret &lt;client-secret&gt; -u &lt;your spotify username&gt;
 
 OR 
 
-> python3 spotify.py --client_id &lt;client-id&gt; --client_secret &lt;client-secret&gt;
+> python3 spotify.py --client_id &lt;client-id&gt; --client_secret &lt;client-secret&gt; -username &lt;your spotify username&gt;
