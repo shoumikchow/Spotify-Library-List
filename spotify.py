@@ -3,8 +3,6 @@ import csv
 import math
 import operator
 
-from tqdm import tqdm
-
 import spotipy
 import spotipy.util as util
 
@@ -16,27 +14,33 @@ parser.add_argument('-secret',
                     '--client_secret',
                     help='enter client secret from developer.spotify.com')
 
-parser.add_argument('-u',
-                    '--username',
-                    help='enter your spotify username')
+parser.add_argument('-u', '--username', help='enter your spotify username')
 
 scope = 'user-library-read'
-username = args.username
 
 args = parser.parse_args()
 
+username = args.username
 token = util.prompt_for_user_token(username,
                                    scope,
                                    client_id=args.client_id,
                                    client_secret=args.client_secret,
                                    redirect_uri='http://localhost/')
 
-total = int(input("Enter total number of songs in your library: "))
-
 songs_artists_albums = []
 sp = spotipy.Spotify(auth=token)
-for i in tqdm(range(math.ceil(total / 20))):
-    results = sp.current_user_saved_tracks(offset=20 * i)
+
+results = sp.current_user_saved_tracks(50)
+tracks = results['items']
+for item in results['items']:
+    track = item['track']
+    songs_artists_albums.append([
+        track['name'], track['artists'][0]['name'], track['album']['name'],
+        track['external_urls']['spotify']
+    ])
+
+while results['next']:
+    results = sp.next(results)
     for item in results['items']:
         track = item['track']
         songs_artists_albums.append([
